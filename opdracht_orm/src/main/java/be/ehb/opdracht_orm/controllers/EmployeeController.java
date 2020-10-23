@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/employees")
 public class EmployeeController {
-    private EmployeeDAO employeeDAO;
+    private final EmployeeDAO employeeDAO;
 
     @Autowired
     public EmployeeController(EmployeeDAO employeeDAO) {
@@ -32,7 +33,7 @@ public class EmployeeController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Employee getEmployeeById(@PathVariable(name = "id") int id) {
+    public Optional<Employee> getEmployeeById(@PathVariable(name = "id") int id) {
         return employeeDAO.findById(id);
     }
 

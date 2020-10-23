@@ -16,6 +16,12 @@ public class Employee {
 
     private String email;
 
+    public Employee(String name, String telNumber, String email) {
+        this.name = name;
+        this.telNumber = telNumber;
+        this.email = email;
+    }
+
     public Employee() {
     }
 
