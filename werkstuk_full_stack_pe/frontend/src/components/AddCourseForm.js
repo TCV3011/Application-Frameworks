@@ -23,7 +23,7 @@ class AddCourseForm extends Component {
 
   render() {
     return (
-      <div className='mb-4'>
+      <form className='mb-4'>
         <div className='row'>
           <div className='col-md-8'>
             <div className='form-group'>
@@ -71,7 +71,7 @@ class AddCourseForm extends Component {
           Create
         </button>
         <hr />
-      </div>
+      </form>
     )
   }
 }

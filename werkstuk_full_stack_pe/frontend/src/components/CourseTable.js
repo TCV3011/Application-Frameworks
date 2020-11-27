@@ -28,32 +28,27 @@ class CourseTable extends Component {
   }
 
   createCourseHandler = (courseForm) => {
-    console.log(courseForm)
-    let newCourse = {
-      name: courseForm.name,
-      description: courseForm.description,
-      price: courseForm.price
-    }
-
-    fetch('http://localhost:8080/api/courses/add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        accept: 'application/json'
-      },
-      body: JSON.stringify(newCourse)
-    })
+    fetch(
+      `http://localhost:8080/api/courses/add?name=${courseForm.name}&description=${courseForm.description}&price=${courseForm.price}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'x-www-form-url-encoded',
+          accept: 'application/json'
+        }
+      }
+    )
       .then((res) => {
         if (res.ok) {
-          console.log(`create product response: ${JSON.stringify(res)}`)
+          console.log(`create product response: ${res.status}`)
           return res.json()
         }
-        console.log(`create product error: ${res.formData}`)
+        console.log(`create product error: ${res.statusText}`)
       })
       .then((json) => {
         console.log(
-          `product created, got id: ${JSON.stringify(json)}, ${JSON.stringify(
-            newCourse
+          `product created, got: ${JSON.stringify(json)}, ${JSON.stringify(
+            courseForm
           )}`
         )
       })
@@ -61,7 +56,7 @@ class CourseTable extends Component {
         console.log(`error: ${err}`)
       })
 
-    this.setState({ Courses: [] })
+    this.componentDidMount()
   }
 
   render() {

@@ -21,15 +21,16 @@ class DeleteForm extends Component {
         console.log(`error: ${err}`)
       })
 
-    // console.log(this.state.parent)
-    this.setState({})
+    this.componentDidMount()
   }
 
   render() {
     return (
-      <button className='btn btn-danger' onClick={this.deleteCurrent}>
-        delete
-      </button>
+      <form>
+        <button className='btn btn-danger' onClick={this.deleteCurrent}>
+          delete
+        </button>
+      </form>
     )
   }
 }
