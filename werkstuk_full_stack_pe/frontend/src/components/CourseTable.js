@@ -28,6 +28,7 @@ class CourseTable extends Component {
   }
 
   createCourseHandler = (courseForm) => {
+    console.log('add course createCourseHandler')
     fetch(
       `http://localhost:8080/api/courses/add?name=${courseForm.name}&description=${courseForm.description}&price=${courseForm.price}`,
       {
@@ -51,17 +52,33 @@ class CourseTable extends Component {
             courseForm
           )}`
         )
+        this.componentDidMount()
       })
       .catch((err) => {
         console.log(`error: ${err}`)
       })
+  }
 
-    this.componentDidMount()
+  deleteCurrent = (currentId) => {
+    fetch(`http://localhost:8080/api/courses/delete/${currentId}`, {
+      method: 'DELETE',
+      headers: { accept: 'application/json' }
+    })
+      .then((res) => {
+        if (res.ok) {
+          console.log('delete')
+          this.componentDidMount(console.log(currentId))
+          return res.json()
+        }
+      })
+      .catch((err) => {
+        console.log(`error: ${err}`)
+      })
   }
 
   render() {
     return (
-      <div>
+      <div className='mt-5'>
         <h1>Courses</h1>
         <AddCourseForm onSubmit={this.createCourseHandler} />
         <div className='table'>
@@ -87,7 +104,10 @@ class CourseTable extends Component {
                     <td>{course.description}</td>
                     <td>{course.price}</td>
                     <td>
-                      <DeleteForm currentId={course.id} parent={this} />
+                      <DeleteForm
+                        currentId={course.id}
+                        onSubmit={this.deleteCurrent}
+                      />
                     </td>
                   </tr>
                 )

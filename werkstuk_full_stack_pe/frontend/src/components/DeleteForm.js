@@ -1,36 +1,28 @@
 import React, { Component } from 'react'
 
 class DeleteForm extends Component {
-  state = {
-    currentId: this.props.currentId,
-    parent: this.props.parent
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentId: this.props.currentId
+    }
   }
 
-  deleteCurrent = () => {
-    fetch(`http://localhost:8080/api/courses/delete/${this.state.currentId}`, {
-      method: 'DELETE',
-      headers: { accept: 'application/json' }
-    })
-      .then((res) => {
-        if (res.ok) {
-          console.log('delete')
-          return res.json()
-        }
-      })
-      .catch((err) => {
-        console.log(`error: ${err}`)
-      })
-
-    this.componentDidMount()
+  submitHandler = () => {
+    console.log('delete submitHandler')
+    this.props.onSubmit(this.state.currentId)
+    console.log('delete submitHandler after onSubmit')
+    this.setState({})
+    console.log('delete submitHandler after setState')
   }
 
   render() {
     return (
-      <form>
-        <button className='btn btn-danger' onClick={this.deleteCurrent}>
+      <div>
+        <button className='btn btn-danger' onClick={this.submitHandler}>
           delete
         </button>
-      </form>
+      </div>
     )
   }
 }

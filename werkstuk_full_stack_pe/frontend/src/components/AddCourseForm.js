@@ -7,8 +7,16 @@ class AddCourseForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this)
   }
 
+  componentDidMount = () => {
+    this.setState({ name: '', description: '', price: '' })
+  }
+
   submitHandler = () => {
+    console.log('add course submit handler')
     this.props.onSubmit(this.state)
+    console.log('add course submit handler after onSubmit')
+    this.componentDidMount()
+    console.log('add course submit handler after componentDidMount')
   }
 
   handleInputChange(event) {
@@ -23,7 +31,7 @@ class AddCourseForm extends Component {
 
   render() {
     return (
-      <form className='mb-4'>
+      <div className='mb-4'>
         <div className='row'>
           <div className='col-md-8'>
             <div className='form-group'>
@@ -47,6 +55,7 @@ class AddCourseForm extends Component {
                 type='number'
                 id='price'
                 min='0'
+                step='0.01'
                 required
                 name={'price'}
                 value={this.state.price}
@@ -71,7 +80,7 @@ class AddCourseForm extends Component {
           Create
         </button>
         <hr />
-      </form>
+      </div>
     )
   }
 }
